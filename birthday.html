@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生日快乐！</title>
+    <link rel="stylesheet" href="normalize.css">
+    <style>
+        .birthday-message {
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 2s ease forwards;
+        }
+        
+        h1 {
+            color: #ff69b4;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        
+        .message {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #666;
+            margin: 15px 0;
+            opacity: 0;
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .message:nth-child(1) { animation: fadeIn 2s ease forwards 1s; }
+        .message:nth-child(2) { animation: fadeIn 2s ease forwards 3s; }
+        .message:nth-child(3) { animation: fadeIn 2s ease forwards 5s; }
+        .message:nth-child(4) { animation: fadeIn 2s ease forwards 7s; }
+        
+        /* 添加爱心背景 */
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* 添加音乐控制按钮样式 */
+        .music-control {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            z-index: 100;
+            cursor: pointer;
+            font-size: 24px;
+            color: #ff69b4;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="music-control" onclick="toggleMusic()">🎵</div>
+    <audio id="bgMusic" loop>
+        <source src="https://music.163.com/song/media/outer/url?id=1387581250.mp3" type="audio/mpeg">
+    </audio>
+    <div class="hearts"></div>
+    <div class="birthday-message">
+        <h1>✨ 生日快乐，张静怡 ✨</h1>
+        <p class="message">今天是你的生日，</p>
+        <p class="message">愿你的生活如繁星般闪耀，</p>
+        <p class="message">愿你的笑容如阳光般温暖，</p>
+        <p class="message">愿所有美好都如约而至。🎂</p>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const audio = document.getElementById('bgMusic');
+            audio.volume = 0.5;
+            document.body.addEventListener('click', function() {
+                audio.play();
+            }, { once: true });
+            
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤';
+                heart.style.position = 'fixed';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = '100vh';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                heart.style.color = `hsl(${Math.random() * 60 + 330}, 100%, 70%)`;
+                heart.style.animation = `float ${Math.random() * 3 + 2}s linear infinite`;
+                document.querySelector('.hearts').appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 5000);
+            }
+
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float {
+                    to {
+                        transform: translateY(-100vh) rotate(360deg);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            setInterval(createHeart, 300);
+        };
+
+        function toggleMusic() {
+            const audio = document.getElementById('bgMusic');
+            const musicControl = document.querySelector('.music-control');
+            
+            if (audio.paused) {
+                audio.play();
+                musicControl.style.animationPlayState = 'running';
+            } else {
+                audio.pause();
+                musicControl.style.animationPlayState = 'paused';
+            }
+        }
+    </script>
+</body>
+</html> 
