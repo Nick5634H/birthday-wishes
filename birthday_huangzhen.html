@@ -18,7 +18,7 @@
         }
         
         h1 {
-            color: #4169E1;  /* 使用蓝色主题 */
+            color: #4169E1;  /* 黄镇使用蓝色主题 */
             margin-bottom: 20px;
             font-size: 2.5em;
         }
@@ -104,6 +104,127 @@
             0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
             100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
+
+        /* 添加反馈按钮样式 */
+        .feedback-buttons {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .feedback-button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .like-button {
+            background: #ff69b4;
+            color: white;
+        }
+
+        .dislike-button {
+            background: #4169E1;
+            color: white;
+        }
+
+        .feedback-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .button-switch {
+            animation: switchAnim 0.15s ease;
+        }
+
+        @keyframes switchAnim {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+
+        /* 信封样式 */
+        .envelope-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 1s;
+            z-index: 1000;
+        }
+
+        .envelope {
+            width: 300px;
+            height: 200px;
+            background: #f5f5f5;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: #e0e0e0;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top;
+            transition: transform 1s;
+        }
+
+        .letter {
+            position: absolute;
+            width: 280px;
+            background: #fff;
+            padding: 20px;
+            font-size: 16px;
+            line-height: 1.6;
+            transform: translateY(-200px) scale(0.5);
+            opacity: 0;
+            transition: all 1.5s;
+        }
+
+        .letter.show {
+            transform: translateY(-220px) scale(1);
+            opacity: 1;
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        /* 对话框样式 */
+        .message-bubble {
+            position: fixed;
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            font-size: 16px;
+            color: #666;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: bubbleFloat 4s ease-in-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes bubbleFloat {
+            0% { opacity: 0; transform: translateY(20px); }
+            20% { opacity: 0.8; transform: translateY(0); }
+            80% { opacity: 0.8; transform: translateY(-100px); }
+            100% { opacity: 0; transform: translateY(-150px); }
+        }
     </style>
 </head>
 <body>
@@ -122,6 +243,32 @@
 
     <div class="fireworks-container"></div>
     <div class="firework-text">生日快乐</div>
+
+    <div class="feedback-buttons" id="feedbackButtons">
+        <button class="feedback-button like-button" onclick="handleFeedback('like')">❤️ 喜欢</button>
+        <button class="feedback-button dislike-button" onclick="handleFeedback('dislike')">💔 不喜欢</button>
+    </div>
+
+    <div class="envelope-container" id="envelopeContainer">
+        <div class="envelope">
+            <div class="envelope-flap"></div>
+            <div class="letter">
+                <p class="recipient"></p>
+                <p>
+                    亲爱的黄镇：<br><br>
+                    在这个特别的日子里，想对你说一些话。时光飞逝，岁月如梭，转眼间又迎来了你的生日。每个人的生命中都有无数个日子，但生日永��是最特别的。这一天，不仅是对生命的庆祝，更是对未来的期许。<br><br>
+                    
+                    愿你保持永远年轻的心态，对生活充满热情。愿你的眼睛永远明亮，能看到世界的美好。愿你的笑容永远灿烂，能感染身边的每个人。愿你的心灵永远纯净，能包容生活的不完美。<br><br>
+                    
+                    生活就像一本书，每一天都是新的一页。有欢笑，有泪水，有成功的喜悦，也有失败的痛苦。但请记住，无论经历什么，这些都是让你成长的养分。愿你在新的一年里，能写出属于自己的精彩故事。<br><br>
+                    
+                    记住，你是独一无二的，你的存在就是这个世界最美的礼物。生日快乐！愿你所有的梦想都能实现，所有的期待都能如愿，所有的付出都能有回报。<br><br>
+                    
+                    祝福你！
+                </p>
+            </div>
+        </div>
+    </div>
 
     <script>
         window.onload = function() {
@@ -212,6 +359,50 @@
                     clearInterval(fireworkInterval);
                 }, 45000);
             }, 7000);
+
+            // 修改温馨问候语数组
+            const messages = [
+                "愿你的笑容比阳光更灿烂 ✨",
+                "愿每一天都充满惊喜 🎁",
+                "愿你遇见最美好的自己 🌟",
+                "愿你被这个世界温柔以待 🌸",
+                "愿你的快乐永远多于烦恼 💫",
+                "愿你的生活如诗如画 🎨",
+                "愿你的心愿都能实现 ⭐",
+                "愿你永远保持纯真的心 💝",
+                "愿你的道路布满鲜花 🌺",
+                "愿你遇见最好的风景 🌅",
+                "愿你的生活甜如蜜糖 🍯",
+                "愿你被幸福环绕 💖",
+                "愿你梦想成真 🌈",
+                "愿你平安喜乐 ☘️",
+                "愿你光芒万丈 ✨"
+            ];
+
+            function createMessageBubble() {
+                const bubble = document.createElement('div');
+                bubble.className = 'message-bubble';
+                
+                const message = messages[Math.floor(Math.random() * messages.length)];
+                bubble.textContent = message;
+                
+                bubble.style.left = Math.random() * (window.innerWidth - 200) + 'px';
+                bubble.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+                
+                document.body.appendChild(bubble);
+                
+                setTimeout(() => bubble.remove(), 4000);
+            }
+
+            const messageInterval = setInterval(() => {
+                if (Math.random() > 0.7) {
+                    createMessageBubble();
+                }
+            }, 1000);
+
+            setTimeout(() => {
+                clearInterval(messageInterval);
+            }, 45000);
         };
 
         function toggleMusic() {
@@ -225,6 +416,80 @@
                 audio.pause();
                 musicControl.style.animationPlayState = 'paused';
             }
+        }
+
+        function switchButtons() {
+            const likeButton = document.querySelector('.like-button');
+            const dislikeButton = document.querySelector('.dislike-button');
+            
+            likeButton.classList.add('button-switch');
+            dislikeButton.classList.add('button-switch');
+            
+            const tempText = likeButton.textContent;
+            likeButton.textContent = dislikeButton.textContent;
+            dislikeButton.textContent = tempText;
+            
+            likeButton.style.backgroundColor = '#4169E1';
+            dislikeButton.style.backgroundColor = '#ff69b4';
+            
+            likeButton.classList.remove('like-button');
+            likeButton.classList.add('temp-button');
+            dislikeButton.classList.remove('dislike-button');
+            dislikeButton.classList.add('like-button');
+            likeButton.classList.remove('temp-button');
+            likeButton.classList.add('dislike-button');
+            
+            setTimeout(() => {
+                likeButton.classList.remove('button-switch');
+                dislikeButton.classList.remove('button-switch');
+            }, 150);
+        }
+
+        function resetButtons() {
+            const likeButton = document.querySelector('.like-button');
+            const dislikeButton = document.querySelector('.dislike-button');
+            
+            likeButton.textContent = '❤️ 喜欢';
+            dislikeButton.textContent = '💔 不喜欢';
+            
+            likeButton.style.backgroundColor = '#ff69b4';
+            dislikeButton.style.backgroundColor = '#4169E1';
+            
+            if (!likeButton.classList.contains('like-button')) {
+                likeButton.classList.remove('dislike-button');
+                likeButton.classList.add('like-button');
+                dislikeButton.classList.remove('like-button');
+                dislikeButton.classList.add('dislike-button');
+            }
+        }
+
+        // 只保留不喜欢按钮的事件监听
+        document.querySelector('.dislike-button').addEventListener('mouseover', switchButtons);
+        document.querySelector('.dislike-button').addEventListener('mouseout', resetButtons);
+        // 移除喜欢按钮的事件监听
+        // document.querySelector('.like-button').addEventListener('mouseover', switchButtons);
+        // document.querySelector('.like-button').addEventListener('mouseout', resetButtons);
+
+        function handleFeedback(type) {
+            const buttons = document.getElementById('feedbackButtons');
+            buttons.style.display = 'none';
+
+            // 显示信封
+            const envelope = document.getElementById('envelopeContainer');
+            envelope.style.transform = 'translate(-50%, -50%) scale(1)';
+
+            // 设置收信人名字
+            document.querySelector('.recipient').textContent = '黄镇';
+
+            // 延迟打开信封
+            setTimeout(() => {
+                document.querySelector('.envelope').classList.add('open');
+                
+                // 显示信件内容
+                setTimeout(() => {
+                    document.querySelector('.letter').classList.add('show');
+                }, 1000);
+            }, 1500);
         }
     </script>
 </body>
