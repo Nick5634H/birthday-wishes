@@ -142,12 +142,12 @@
         }
 
         .button-switch {
-            animation: switchAnim 0.15s ease;
+            animation: switchAnim 0.12s ease;
         }
 
         @keyframes switchAnim {
             0% { transform: scale(1); }
-            50% { transform: scale(0.95); }
+            50% { transform: scale(0.97); }
             100% { transform: scale(1); }
         }
 
@@ -159,6 +159,10 @@
             transform: translate(-50%, -50%) scale(0);
             transition: transform 1s;
             z-index: 1000;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.2);
         }
 
         .envelope {
@@ -184,6 +188,8 @@
         .letter {
             position: absolute;
             width: 280px;
+            max-height: 400px;
+            overflow-y: auto;
             background: #fff;
             padding: 20px;
             font-size: 16px;
@@ -234,7 +240,7 @@
                     
                     愿你保持永远年轻的心态，对生活充满热情。愿你的眼睛永远明亮，能看到世界的美好。愿你的笑容永远灿烂，能感染身边的每个人。愿你的心灵永远纯净，能包容生活的不完美。<br><br>
                     
-                    生活就像一本书，每一天都是新的一页。有欢笑，有泪水，有成功的喜悦，也有失败的痛苦。但请记住，无论经历什么，这些都是让你成长的养分。愿你在新的一年里，能写出属于自己的精彩故事。<br><br>
+                    生活就像一本书，每一天都是新的一页。有欢笑，有泪水，有成功的喜悦，也有失败的痛苦。但请记住，无论经历什么，这些都是让你成长的养分。愿你在的一年里，能写出属于自己的精彩故事。<br><br>
                     
                     记住，你是独一无二的，你的存在就是这个世界最美的礼物。生日快乐！愿你所有的梦想都能实现，所有的期待都能如愿，所有的付出都能有回报。<br><br>
                     
@@ -326,8 +332,12 @@
                 button.style.transform = 'scale(1)';
             }, 100);
 
+            // 隐藏按钮和其他元素
             const buttons = document.getElementById('feedbackButtons');
             buttons.style.display = 'none';
+            document.querySelector('.birthday-message').style.display = 'none';
+            document.querySelector('.fireworks-container').style.display = 'none';
+            document.querySelector('.firework-text').style.display = 'none';
 
             // 显示信封
             const envelope = document.getElementById('envelopeContainer');
@@ -370,7 +380,7 @@
             dislikeButton.classList.add('like-button');
         }
 
-        // 只添加"不喜欢"按钮的事件监听
+        // 只添加"喜欢"按钮的事件监听
         document.querySelector('.dislike-button').addEventListener('mouseover', switchButtons);
     </script>
 </body>

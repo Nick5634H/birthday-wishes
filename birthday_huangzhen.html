@@ -254,7 +254,7 @@
             <div class="letter">
                 <h3>亲爱的 <span class="recipient"></span>：</h3>
                 <p>
-                    在这个特别的日子里，想对你说一些话。时光飞逝，岁月如梭，转眼间又迎来了你的生日。每个人的生命中都有无数个日子，但生日永远是最特别的。这一天，不仅是对生命的庆祝，更是对未来的期许。<br><br>
+                    在这个特别的日子里，想对你说一些话。时光飞逝，岁月如梭，转眼间又迎来了你的生日。每个人的���命中都有无数个日子，但生日永远是最特别的。这一天，不仅是对生命的庆祝，更是对未来的期许。<br><br>
                     
                     愿你保持永远年轻的心态，对生活充满热情。愿你的眼睛永远明亮，能看到世界的美好。愿你的笑容永远灿烂，能感染身边的每个人。愿你的心灵永远纯净，能包容生活的不完美。<br><br>
                     
@@ -450,8 +450,12 @@
                 button.style.transform = 'scale(1)';
             }, 100);
 
+            // 隐藏按钮和其他元素
             const buttons = document.getElementById('feedbackButtons');
             buttons.style.display = 'none';
+            document.querySelector('.birthday-message').style.display = 'none';
+            document.querySelector('.fireworks-container').style.display = 'none';
+            document.querySelector('.firework-text').style.display = 'none';
 
             // 显示信封
             const envelope = document.getElementById('envelopeContainer');
