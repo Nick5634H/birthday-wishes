@@ -117,22 +117,23 @@
         }
 
         .feedback-button {
-            padding: 10px 20px;
-            margin: 0 10px;
+            padding: 12px 25px;
+            margin: 0 12px;
             font-size: 18px;
             border: none;
-            border-radius: 20px;
+            border-radius: 25px;
             cursor: pointer;
-            transition: all 0.15s ease;
+            transition: all 0.12s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
 
         .like-button {
-            background: #ff69b4;
+            background: linear-gradient(45deg, #ff69b4, #ff8da1);
             color: white;
         }
 
         .dislike-button {
-            background: #4169E1;
+            background: linear-gradient(45deg, #4169E1, #5c8aff);
             color: white;
         }
 
@@ -148,6 +149,57 @@
             0% { transform: scale(1); }
             50% { transform: scale(0.95); }
             100% { transform: scale(1); }
+        }
+
+        /* 添加信封样式 */
+        .envelope-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 1s;
+            z-index: 1000;
+        }
+
+        .envelope {
+            width: 300px;
+            height: 200px;
+            background: #f5f5f5;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: #e0e0e0;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top;
+            transition: transform 1s;
+        }
+
+        .letter {
+            position: absolute;
+            width: 280px;
+            background: #fff;
+            padding: 20px;
+            font-size: 16px;
+            line-height: 1.6;
+            transform: translateY(-200px) scale(0.5);
+            opacity: 0;
+            transition: all 1.5s;
+        }
+
+        .letter.show {
+            transform: translateY(-220px) scale(1);
+            opacity: 1;
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
         }
     </style>
 </head>
@@ -170,6 +222,26 @@
     <div class="feedback-buttons" id="feedbackButtons">
         <button class="feedback-button like-button" onclick="handleFeedback('like')">❤️ 喜欢</button>
         <button class="feedback-button dislike-button" onclick="handleFeedback('dislike')">💔 不喜欢</button>
+    </div>
+
+    <div class="envelope-container" id="envelopeContainer">
+        <div class="envelope">
+            <div class="envelope-flap"></div>
+            <div class="letter">
+                <h3>亲爱的 <span class="recipient"></span>：</h3>
+                <p>
+                    在这个特别的日子里，想对你说一些话。时光飞逝，岁月如梭，转眼间又迎来了你的生日。每个人的生命中都有无数个日子，但生日永远是最特别的。这一天，不仅是对生命的庆祝，更是对未来的期许。<br><br>
+                    
+                    愿你保持永远年轻的心态，对生活充满热情。愿你的眼睛永远明亮，能看到世界的美好。愿你的笑容永远灿烂，能感染身边的每个人。愿你的心灵永远纯净，能包容生活的不完美。<br><br>
+                    
+                    生活就像一本书，每一天都是新的一页。有欢笑，有泪水，有成功的喜悦，也有失败的痛苦。但请记住，无论经历什么，这些都是让你成长的养分。愿你在新的一年里，能写出属于自己的精彩故事。<br><br>
+                    
+                    记住，你是独一无二的，你的存在就是这个世界最美的礼物。生日快乐！愿你所有的梦想都能实现，所有的期待都能如愿，所有的付出都能有回报。<br><br>
+                    
+                    祝福你！
+                </p>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -244,6 +316,35 @@
                 audio.pause();
                 musicControl.style.animationPlayState = 'paused';
             }
+        }
+
+        function handleFeedback(type) {
+            // 添加点击波纹效果
+            const button = document.querySelector('.like-button');
+            button.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+            }, 100);
+
+            const buttons = document.getElementById('feedbackButtons');
+            buttons.style.display = 'none';
+
+            // 显示信封
+            const envelope = document.getElementById('envelopeContainer');
+            envelope.style.transform = 'translate(-50%, -50%) scale(1)';
+
+            // 设置收信人名字
+            document.querySelector('.recipient').textContent = '张静怡';
+
+            // 延迟打开信封
+            setTimeout(() => {
+                document.querySelector('.envelope').classList.add('open');
+                
+                // 显示信件内容
+                setTimeout(() => {
+                    document.querySelector('.letter').classList.add('show');
+                }, 1000);
+            }, 1500);
         }
 
         function switchButtons() {

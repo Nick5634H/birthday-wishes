@@ -117,39 +117,38 @@
         }
 
         .feedback-button {
-            padding: 10px 20px;
-            margin: 0 10px;
+            padding: 12px 25px;
+            margin: 0 12px;
             font-size: 18px;
             border: none;
-            border-radius: 20px;
+            border-radius: 25px;
             cursor: pointer;
-            transition: all 0.15s ease;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.12s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
 
         .like-button {
-            background: #ff69b4;
+            background: linear-gradient(45deg, #ff69b4, #ff8da1);
             color: white;
         }
 
         .dislike-button {
-            background: #4169E1;
+            background: linear-gradient(45deg, #4169E1, #5c8aff);
             color: white;
         }
 
         .feedback-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
         }
 
         .button-switch {
-            animation: switchAnim 0.15s ease;
+            animation: switchAnim 0.12s ease;
         }
 
         @keyframes switchAnim {
             0% { transform: scale(1); }
-            50% { transform: scale(0.95); }
+            50% { transform: scale(0.97); }
             100% { transform: scale(1); }
         }
 
@@ -229,7 +228,7 @@
 </head>
 <body>
     <div class="music-control" onclick="toggleMusic()">🎵</div>
-    <audio id="bgMusic" loop>
+    <audio id="bgMusic" loop autoplay>
         <source src="https://music.163.com/song/media/outer/url?id=1387581250.mp3" type="audio/mpeg">
     </audio>
     <div class="stars"></div>
@@ -253,10 +252,9 @@
         <div class="envelope">
             <div class="envelope-flap"></div>
             <div class="letter">
-                <p class="recipient"></p>
+                <h3>亲爱的 <span class="recipient"></span>：</h3>
                 <p>
-                    亲爱的黄镇：<br><br>
-                    在这个特别的日子里，想对你说一些话。时光飞逝，岁月如梭，转眼间又迎来了你的生日。每个人的生命中都有无数个日子，但生日永远最特别的。这一天，不仅是对生命的庆祝，更是对未来的期许。<br><br>
+                    在这个特别的日子里，想对你说一些话。时光飞逝，岁月如梭，转眼间又迎来了你的生日。每个人的生命中都有无数个日子，但生日永远是最特别的。这一天，不仅是对生命的庆祝，更是对未来的期许。<br><br>
                     
                     愿你保持永远年轻的心态，对生活充满热情。愿你的眼睛永远明亮，能看到世界的美好。愿你的笑容永远灿烂，能感染身边的每个人。愿你的心灵永远纯净，能包容生活的不完美。<br><br>
                     
@@ -366,7 +364,7 @@
                 "愿每一天都充满惊喜 🎁",
                 "愿你遇见最美好的自己 🌟",
                 "愿你被这个世界温柔以待 🌸",
-                "��你的快乐永远多于烦恼 💫",
+                "愿你的快乐永远多于烦恼 💫",
                 "愿你的生活如诗如画 🎨",
                 "愿你的心愿都能实现 ⭐",
                 "愿你永远保持纯真的心 💝",
@@ -375,7 +373,7 @@
                 "愿你的生活甜如蜜糖 🍯",
                 "愿你被幸福环绕 💖",
                 "愿你梦想成真 🌈",
-                "愿你平安喜乐 ☘️",
+                "愿你平安喜乐 💖",
                 "愿你光芒万丈 ✨"
             ];
 
@@ -445,6 +443,13 @@
         document.querySelector('.dislike-button').addEventListener('mouseover', switchButtons);
 
         function handleFeedback(type) {
+            // 添加点击波纹效果
+            const button = document.querySelector('.like-button');
+            button.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+            }, 100);
+
             const buttons = document.getElementById('feedbackButtons');
             buttons.style.display = 'none';
 

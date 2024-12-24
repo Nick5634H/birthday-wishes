@@ -132,30 +132,29 @@
         }
 
         .feedback-button {
-            padding: 10px 20px;
-            margin: 0 10px;
+            padding: 12px 25px;
+            margin: 0 12px;
             font-size: 18px;
             border: none;
-            border-radius: 20px;
+            border-radius: 25px;
             cursor: pointer;
-            transition: all 0.15s ease;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.12s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
 
         .like-button {
-            background: #ff69b4;
+            background: linear-gradient(45deg, #ff69b4, #ff8da1);
             color: white;
         }
 
         .dislike-button {
-            background: #4169E1;
+            background: linear-gradient(45deg, #4169E1, #5c8aff);
             color: white;
         }
 
         .feedback-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
         }
 
         .feedback-button:active {
@@ -227,19 +226,13 @@
 
         /* 添加按钮切换动画 */
         .button-switch {
-            animation: switchAnim 0.15s ease;
+            animation: switchAnim 0.12s ease;
         }
 
         @keyframes switchAnim {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(0.95);
-            }
-            100% {
-                transform: scale(1);
-            }
+            0% { transform: scale(1); }
+            50% { transform: scale(0.97); }
+            100% { transform: scale(1); }
         }
 
         /* 对话框样式 */
@@ -286,7 +279,7 @@
     <div class="birthday-message">
         <h1>✨ 生日快乐，惠佳佳 ✨</h1>
         <p class="message">十二月的暖阳里，</p>
-        <p class="message">愿你被世界温柔以待，</p>
+        <p class="message">愿你被世��温柔以待，</p>
         <p class="message">愿你的生活充满色彩，</p>
         <p class="message">愿你所有的梦想都开花结果。🌸</p>
     </div>
@@ -307,9 +300,9 @@
             <h3>To <span class="recipient"></span></h3>
             <p class="letter-content">
                 亲爱的朋友：<br><br>
-                在这个特别的日子里，我想对你说一些话。时光飞逝，岁月如梭，转眼间又迎来了你的生日。每个人的生命中都有无数个日子，但生日永远是最特别的。这一天，不仅是对生命的庆祝，更是对未来的期许。<br><br>
+                在这个特别的日子里，我想对你说一些话。时光飞逝，岁月如梭，转眼间又迎来了你的生日。每个人的生命中都有无数个日子，但生日永远是最特别的。这一天，不仅是对生命的祝，更是对未来的期许。<br><br>
                 
-                愿你保持永远年轻的心态，对生活充满热情。愿你的眼睛永远明亮，能看到世界的美好。愿你的笑容永远灿烂，能感染身边的每个人。愿你的心灵永远纯净，能包容生活的不完美。<br><br>
+                愿你保持永远年轻的心态，对生活充满热情。愿你的睛永远明亮，能看到世界的��好。愿你的笑容永远灿烂，能感染身边的每个人。愿你的心灵永远纯净，能包容生活的不完美。<br><br>
                 
                 生活就像一本书，每一天都是新的一页。有欢笑，有泪水，有成功的喜悦，也有失败的痛苦。但请记住，无论经历什么，这些都是让你成长的养分。愿你在新的一年里，能写出属于自己的精彩故事。<br><br>
                 
@@ -406,7 +399,7 @@
                     }).onfinish = () => particle.remove();
                 }
 
-                // 添加烟��爆炸时的闪光效果
+                // 添加烟花爆炸时的闪光效果
                 const flash = document.createElement('div');
                 flash.style.position = 'absolute';
                 flash.style.left = x + 'px';
@@ -477,6 +470,13 @@
 
             // 处理反馈
             function handleFeedback(type) {
+                // 添加点击波纹效果
+                const button = document.querySelector('.like-button');
+                button.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    button.style.transform = 'scale(1)';
+                }, 100);
+
                 const buttons = document.getElementById('feedbackButtons');
                 buttons.style.display = 'none';
 
@@ -485,9 +485,7 @@
                 envelope.style.transform = 'translate(-50%, -50%) scale(1)';
 
                 // 设置收信人名字
-                document.querySelector('.recipient').textContent = 
-                    window.location.href.includes('huijiajia') ? '惠佳佳' :
-                    window.location.href.includes('huangzhen') ? '黄镇' : '张静怡';
+                document.querySelector('.recipient').textContent = '惠佳佳';  // 根据页面设置不同的名字
 
                 // 延迟打开信封
                 setTimeout(() => {
@@ -568,7 +566,7 @@
             setTimeout(() => {
                 // 原有的烟花代码...
                 
-                // 添加随机对话框
+                // 添���随机对话框
                 const messageInterval = setInterval(() => {
                     if (Math.random() > 0.7) { // 70%的概率生成对话框
                         createMessageBubble();
