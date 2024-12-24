@@ -71,6 +71,39 @@
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
+        
+        /* 添加烟花容器样式 */
+        .fireworks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 2s;
+        }
+
+        .firework-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4em;
+            color: #fff;
+            text-shadow: 0 0 10px #ff0,
+                         0 0 20px #ff0,
+                         0 0 30px #ff0;
+            opacity: 0;
+            z-index: 2;
+            white-space: nowrap;
+        }
+
+        @keyframes textFadeIn {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -86,15 +119,29 @@
         <p class="message">愿你的笑容如阳光般温暖，</p>
         <p class="message">愿所有美好都如约而至。🎂</p>
     </div>
+    <div class="fireworks-container"></div>
+    <div class="firework-text">生日快乐</div>
 
     <script>
         window.onload = function() {
             const audio = document.getElementById('bgMusic');
-            audio.volume = 0.5;
-            document.body.addEventListener('click', function() {
-                audio.play();
-            }, { once: true });
             
+            // 设置更大的音量
+            audio.volume = 0.8;
+            
+            // 确保自动播放
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    console.log("音乐开始播放");
+                })
+                .catch(error => {
+                    document.body.addEventListener('click', () => {
+                        audio.play();
+                    }, { once: true });
+                });
+            }
+
             function createHeart() {
                 const heart = document.createElement('div');
                 heart.innerHTML = '❤';
@@ -120,6 +167,30 @@
             document.head.appendChild(style);
 
             setInterval(createHeart, 300);
+
+            // 添加烟花效果
+            setTimeout(() => {
+                const container = document.querySelector('.fireworks-container');
+                const text = document.querySelector('.firework-text');
+                container.style.opacity = '1';
+                
+                function createFirework() {
+                    for(let i = 0; i < 3; i++) {
+                        const firework = document.createElement('div');
+                        // ... 烟花创建代码（与惠佳佳页面相同）...
+                    }
+                }
+
+                const fireworkInterval = setInterval(createFirework, 30);
+
+                text.style.fontSize = '6em';
+                text.style.opacity = '1';
+                text.style.animation = 'textFadeIn 2s forwards';
+
+                setTimeout(() => {
+                    clearInterval(fireworkInterval);
+                }, 45000);
+            }, 7000);
         };
 
         function toggleMusic() {

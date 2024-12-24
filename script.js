@@ -7,12 +7,15 @@ function validateAndRedirect() {
 
     // 检查输入是否匹配指定值
     if ((name === '张静怡' && birthday === '12.24') || 
-        (name === '黄镇' && birthday === '5.24')) {
+        (name === '黄镇' && birthday === '5.24') ||
+        (name === '惠佳佳' && birthday === '12.12')) {
         // 根据不同的人跳转到对应的生日祝福页面
         if (name === '张静怡') {
             window.location.href = 'birthday.html';
-        } else {
+        } else if (name === '黄镇') {
             window.location.href = 'birthday_huangzhen.html';
+        } else {
+            window.location.href = 'birthday_huijiajia.html';
         }
     } else {
         // 如果不匹配，显示错误提示

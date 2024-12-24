@@ -18,7 +18,7 @@
         }
         
         h1 {
-            color: #4169E1;  /* 使用蓝色主题 */
+            color: #FF1493;  /* 使用粉红色主题 */
             margin-bottom: 20px;
             font-size: 2.5em;
         }
@@ -44,8 +44,8 @@
         .message:nth-child(3) { animation: fadeIn 2s ease forwards 5s; }
         .message:nth-child(4) { animation: fadeIn 2s ease forwards 7s; }
         
-        /* 添加星星背景 */
-        .stars {
+        /* 添加花朵背景 */
+        .flowers {
             position: fixed;
             top: 0;
             left: 0;
@@ -63,7 +63,7 @@
             z-index: 100;
             cursor: pointer;
             font-size: 24px;
-            color: #4169E1;
+            color: #FF1493;
             animation: rotate 3s linear infinite;
         }
 
@@ -71,8 +71,8 @@
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-
-        /* 在现有样式后添加烟花样式 */
+        
+        /* 添加烟花容器样式 */
         .fireworks-container {
             position: fixed;
             top: 0;
@@ -108,16 +108,16 @@
 </head>
 <body>
     <div class="music-control" onclick="toggleMusic()">🎵</div>
-    <audio id="bgMusic" loop>
+    <audio id="bgMusic" loop autoplay>
         <source src="https://music.163.com/song/media/outer/url?id=1387581250.mp3" type="audio/mpeg">
     </audio>
-    <div class="stars"></div>
+    <div class="flowers"></div>
     <div class="birthday-message">
-        <h1>✨ 生日快乐，黄镇 ✨</h1>
-        <p class="message">在这特别的日子里，</p>
-        <p class="message">愿你前程似锦，梦想成真，</p>
-        <p class="message">愿你的人生如五月般灿烂，</p>
-        <p class="message">愿你永远充满希望与活力。🎂</p>
+        <h1>✨ 生日快乐，惠佳佳 ✨</h1>
+        <p class="message">十二月的暖阳里，</p>
+        <p class="message">愿你被世界温柔以待，</p>
+        <p class="message">愿你的生活充满色彩，</p>
+        <p class="message">愿你所有的梦想都开花结果。🌸</p>
     </div>
 
     <div class="fireworks-container"></div>
@@ -126,32 +126,36 @@
     <script>
         window.onload = function() {
             const audio = document.getElementById('bgMusic');
+            
+            // 设置更大的音量
             audio.volume = 0.8;
             
+            // 确保自动播放
             const playPromise = audio.play();
             if (playPromise !== undefined) {
                 playPromise.then(_ => {
+                    // 自动播放成功
                     console.log("音乐开始播放");
                 })
                 .catch(error => {
+                    // 自动播放失败，需要用户交互
                     document.body.addEventListener('click', () => {
                         audio.play();
                     }, { once: true });
                 });
             }
 
-            function createStar() {
-                const star = document.createElement('div');
-                star.innerHTML = '⭐';
-                star.style.position = 'fixed';
-                star.style.left = Math.random() * 100 + 'vw';
-                star.style.top = '100vh';
-                star.style.fontSize = (Math.random() * 15 + 8) + 'px';
-                star.style.color = `hsl(${Math.random() * 60 + 200}, 100%, 70%)`;
-                star.style.animation = `float ${Math.random() * 3 + 2}s linear infinite`;
-                document.querySelector('.stars').appendChild(star);
+            function createFlower() {
+                const flower = document.createElement('div');
+                flower.innerHTML = '🌸';
+                flower.style.position = 'fixed';
+                flower.style.left = Math.random() * 100 + 'vw';
+                flower.style.top = '100vh';
+                flower.style.fontSize = (Math.random() * 15 + 8) + 'px';
+                flower.style.animation = `float ${Math.random() * 3 + 2}s linear infinite`;
+                document.querySelector('.flowers').appendChild(flower);
                 
-                setTimeout(() => star.remove(), 5000);
+                setTimeout(() => flower.remove(), 5000);
             }
 
             const style = document.createElement('style');
@@ -164,15 +168,17 @@
             `;
             document.head.appendChild(style);
 
-            setInterval(createStar, 300);
+            setInterval(createFlower, 300);
 
+            // 烟花效果延迟启动
             setTimeout(() => {
                 const container = document.querySelector('.fireworks-container');
                 const text = document.querySelector('.firework-text');
                 container.style.opacity = '1';
                 
+                // 增加烟花数量和频率
                 function createFirework() {
-                    for(let i = 0; i < 3; i++) {
+                    for(let i = 0; i < 3; i++) { // 同时创建多个烟花
                         const firework = document.createElement('div');
                         firework.style.position = 'absolute';
                         firework.style.left = Math.random() * 100 + 'vw';
@@ -186,9 +192,11 @@
                         
                         container.appendChild(firework);
                         
+                        // 烟花爆炸动画
                         const angle = Math.random() * Math.PI * 2;
                         const velocity = Math.random() * 50 + 30;
                         const lifetime = Math.random() * 1000 + 1000;
+                        let opacity = 1;
                         
                         const animation = firework.animate([
                             { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
@@ -202,15 +210,18 @@
                     }
                 }
 
+                // 更频繁地创建烟花
                 const fireworkInterval = setInterval(createFirework, 30);
 
-                text.style.fontSize = '6em';
+                // 显示更大的文字
+                text.style.fontSize = '6em'; // 增大文字大小
                 text.style.opacity = '1';
                 text.style.animation = 'textFadeIn 2s forwards';
 
+                // 延长烟花持续时间
                 setTimeout(() => {
                     clearInterval(fireworkInterval);
-                }, 45000);
+                }, 45000); // 延长到45秒
             }, 7000);
         };
 
