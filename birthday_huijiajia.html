@@ -406,7 +406,7 @@
                     }).onfinish = () => particle.remove();
                 }
 
-                // 添加烟花爆炸时的闪光效果
+                // 添加烟��爆炸时的闪光效果
                 const flash = document.createElement('div');
                 flash.style.position = 'absolute';
                 flash.style.left = x + 'px';
@@ -508,7 +508,7 @@
                 likeButton.classList.add('button-switch');
                 dislikeButton.classList.add('button-switch');
                 
-                // 快速交换按钮文字和样式
+                // 交换按钮的文字和样式
                 const tempText = likeButton.textContent;
                 likeButton.textContent = dislikeButton.textContent;
                 dislikeButton.textContent = tempText;
@@ -518,44 +518,13 @@
                 
                 // 交换类名
                 likeButton.classList.remove('like-button');
-                likeButton.classList.add('temp-button');
+                likeButton.classList.add('dislike-button');
                 dislikeButton.classList.remove('dislike-button');
                 dislikeButton.classList.add('like-button');
-                likeButton.classList.remove('temp-button');
-                likeButton.classList.add('dislike-button');
-                
-                // 更快地移除动画类
-                setTimeout(() => {
-                    likeButton.classList.remove('button-switch');
-                    dislikeButton.classList.remove('button-switch');
-                }, 150); // 配合动画时间
             }
 
-            function resetButtons() {
-                const likeButton = document.querySelector('.like-button');
-                const dislikeButton = document.querySelector('.dislike-button');
-                
-                // 恢复原始状态
-                likeButton.textContent = '❤️ 喜欢';
-                dislikeButton.textContent = '💔 不喜欢';
-                
-                likeButton.style.backgroundColor = '#ff69b4';
-                dislikeButton.style.backgroundColor = '#4169E1';
-                
-                // 恢复原始类名
-                if (!likeButton.classList.contains('like-button')) {
-                    likeButton.classList.remove('dislike-button');
-                    likeButton.classList.add('like-button');
-                    dislikeButton.classList.remove('like-button');
-                    dislikeButton.classList.add('dislike-button');
-                }
-            }
-
-            // 更新事件监听
+            // 只添加"不喜欢"按钮的事件监听
             document.querySelector('.dislike-button').addEventListener('mouseover', switchButtons);
-            document.querySelector('.dislike-button').addEventListener('mouseout', resetButtons);
-            document.querySelector('.like-button').addEventListener('mouseover', switchButtons);
-            document.querySelector('.like-button').addEventListener('mouseout', resetButtons);
 
             // 温馨问候语数组
             const messages = [
@@ -564,7 +533,7 @@
                 "愿你遇见最美好的自己 🌟",
                 "愿你被这个世界温柔以待 🌸",
                 "愿你的快乐永远多于烦恼 💫",
-                "愿你的生活如诗如画 ��",
+                "愿你的生活如诗如画 🎨",
                 "愿你的心愿都能实现 ⭐",
                 "愿你永远保持纯真的心 💝",
                 "愿你的道路布满鲜花 🌺",
