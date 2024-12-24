@@ -158,11 +158,12 @@
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
             transition: transform 1s;
-            z-index: 1000;
+            z-index: 9999;
             background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 30px rgba(0,0,0,0.2);
+            display: none;
         }
 
         .envelope {
@@ -197,6 +198,7 @@
             transform: translateY(-200px) scale(0.5);
             opacity: 0;
             transition: all 1.5s;
+            z-index: 10000;
         }
 
         .letter.show {
@@ -240,7 +242,7 @@
                     
                     愿你保持永远年轻的心态，对生活充满热情。愿你的眼睛永远明亮，能看到世界的美好。愿你的笑容永远灿烂，能感染身边的每个人。愿你的心灵永远纯净，能包容生活的不完美。<br><br>
                     
-                    生活就像一本书，每一天都是新的一页。有欢笑，有泪水，有成功的喜悦，也有失败的痛苦。但请记住，无论经历什么，这些都是让你成长的养分。愿你在的一年里，能写出属于自己的精彩故事。<br><br>
+                    生活就像一本书，每一天都是新的一页。有欢笑，有泪水，有成功的喜悦，也有失败的痛苦。但请记住，无论经历什么，这些都是让你成长的养分。愿你在新的一年里，能写出属于自己的精彩故事。<br><br>
                     
                     记住，你是独一无二的，你的存在就是这个世界最美的礼物。生日快乐！愿你所有的梦想都能实现，所有的期待都能如愿，所有的付出都能有回报。<br><br>
                     
@@ -332,16 +334,20 @@
                 button.style.transform = 'scale(1)';
             }, 100);
 
-            // 隐藏按钮和其他元素
-            const buttons = document.getElementById('feedbackButtons');
-            buttons.style.display = 'none';
+            // 隐藏其他元素
             document.querySelector('.birthday-message').style.display = 'none';
             document.querySelector('.fireworks-container').style.display = 'none';
             document.querySelector('.firework-text').style.display = 'none';
+            document.querySelector('.feedback-buttons').style.display = 'none';
+            document.querySelector('.hearts').style.display = 'none'; // 隐藏背景
 
             // 显示信封
             const envelope = document.getElementById('envelopeContainer');
-            envelope.style.transform = 'translate(-50%, -50%) scale(1)';
+            envelope.style.display = 'block'; // 先显示元素
+            // 使用 setTimeout 确保 display:block 生效后再添加动画
+            setTimeout(() => {
+                envelope.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 10);
 
             // 设置收信人名字
             document.querySelector('.recipient').textContent = '张静怡';

@@ -329,7 +329,7 @@
             const playPromise = audio.play();
             if (playPromise !== undefined) {
                 playPromise.then(_ => {
-                    // ���动播放成功
+                    // 动播放成功
                     console.log("音乐开始播放");
                 })
                 .catch(error => {
@@ -482,16 +482,19 @@
                     button.style.transform = 'scale(1)';
                 }, 100);
 
-                // 隐藏按钮和其他元素
-                const buttons = document.getElementById('feedbackButtons');
-                buttons.style.display = 'none';
+                // 隐藏其他元素
                 document.querySelector('.birthday-message').style.display = 'none';
                 document.querySelector('.fireworks-container').style.display = 'none';
                 document.querySelector('.firework-text').style.display = 'none';
+                document.querySelector('.feedback-buttons').style.display = 'none';
+                document.querySelector('.flowers').style.display = 'none'; // 隐藏背景
 
                 // 显示信封
                 const envelope = document.getElementById('envelopeContainer');
-                envelope.style.transform = 'translate(-50%, -50%) scale(1)';
+                envelope.style.display = 'block'; // 先显示元素
+                setTimeout(() => {
+                    envelope.style.transform = 'translate(-50%, -50%) scale(1)';
+                }, 10);
 
                 // 设置收信人名字
                 document.querySelector('.recipient').textContent = '惠佳佳';
@@ -575,7 +578,7 @@
             setTimeout(() => {
                 // 原有的烟花代码...
                 
-                // ��随机对话框
+                // 随机对话框
                 const messageInterval = setInterval(() => {
                     if (Math.random() > 0.7) { // 70%的概率生成对话框
                         createMessageBubble();

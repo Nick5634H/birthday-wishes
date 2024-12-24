@@ -159,7 +159,12 @@
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
             transition: transform 1s;
-            z-index: 1000;
+            z-index: 9999;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.2);
+            display: none;
         }
 
         .envelope {
@@ -185,6 +190,8 @@
         .letter {
             position: absolute;
             width: 280px;
+            max-height: 400px;
+            overflow-y: auto;
             background: #fff;
             padding: 20px;
             font-size: 16px;
@@ -192,6 +199,7 @@
             transform: translateY(-200px) scale(0.5);
             opacity: 0;
             transition: all 1.5s;
+            z-index: 10000;
         }
 
         .letter.show {
@@ -254,7 +262,7 @@
             <div class="letter">
                 <h3>亲爱的 <span class="recipient"></span>：</h3>
                 <p>
-                    在这个特别的日子里，想对你说一些话。时光飞逝，岁月如梭，转眼间又迎来了你的生日。每个人的���命中都有无数个日子，但生日永远是最特别的。这一天，不仅是对生命的庆祝，更是对未来的期许。<br><br>
+                    在这个特别的日子里，想对你说一些话。时光飞逝，岁月如梭，转眼间又迎来了你的生日。每个人的生命中都有无数个日子，但生日永远是最特别的。这一天，不仅是对生命的庆祝，更是对未来的期许。<br><br>
                     
                     愿你保持永远年轻的心态，对生活充满热情。愿你的眼睛永远明亮，能看到世界的美好。愿你的笑容永远灿烂，能感染身边的每个人。愿你的心灵永远纯净，能包容生活的不完美。<br><br>
                     
@@ -364,7 +372,7 @@
                 "愿每一天都充满惊喜 🎁",
                 "愿你遇见最美好的自己 🌟",
                 "愿你被这个世界温柔以待 🌸",
-                "愿你的快乐永远多于烦恼 💫",
+                "��你的快乐永远多于烦恼 💫",
                 "愿你的生活如诗如画 🎨",
                 "愿你的心愿都能实现 ⭐",
                 "愿你永远保持纯真的心 💝",
